@@ -6,7 +6,8 @@ const inputStyle =
 
 export default function SignUp() {
   const [stage, setStage] = useState("");
-  const navigate = useNavigate(); // 👈 关键
+  const navigate = useNavigate(); 
+  const [name, setName] = useState("");
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -32,7 +33,12 @@ export default function SignUp() {
         <form className="space-y-4">
 
           {/* Account */}
-          <input placeholder="Username" className={inputStyle} />
+          <input
+            placeholder="Name"
+            className={inputStyle}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <input type="password" placeholder="Password" className={inputStyle} />
 
           {/* Section */}
@@ -75,7 +81,11 @@ export default function SignUp() {
 
           {/* Button */}
           <button
-            type="submit"
+            type="button"
+            onClick={() => {
+                localStorage.setItem("patientName", name);
+                navigate("/dashboard")
+            }}
             className="w-full py-3 rounded-xl bg-[#1F3A5F] text-white font-medium shadow-[0_10px_30px_rgba(31,58,95,0.25)] hover:bg-[#162B45] hover:scale-[1.02] transition-all duration-300"
           >
             Create Profile

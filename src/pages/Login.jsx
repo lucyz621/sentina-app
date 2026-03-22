@@ -37,7 +37,7 @@ export default function Login() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, trimmedEmail, password);
-      navigate("/skin-type");
+      navigate("/dashboard");
     } catch (err) {
       showError(err.message);
       console.error(err);

@@ -7,9 +7,7 @@ export default function SafetySettings() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#F5FAFF]">
-
       <div className="bg-white p-10 rounded-3xl shadow-lg w-[400px] text-center">
-
         <h1 className="text-2xl font-semibold text-[#1F3A5F] mb-6">
           Safety Settings
         </h1>

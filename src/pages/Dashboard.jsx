@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// --- 复用样式组件：浅蓝色渐变 Bar ---
+// ---  Bar ---
 const FeatureBar = ({ title, description }) => (
   <div className="w-full max-w-2xl bg-gradient-to-r from-[#E3F2FD] to-[#F1F8FE] hover:from-[#D1E9FF] hover:to-[#E3F2FD] transition-all cursor-pointer rounded-2xl p-8 mb-6 shadow-sm border border-white/50 group">
     <div className="flex justify-between items-center">
@@ -13,39 +13,39 @@ const FeatureBar = ({ title, description }) => (
   </div>
 );
 
-// --- 输入框样式 (Update 页面使用) ---
+
 const inputStyle = "w-full bg-[#1A263C] text-white rounded-full px-6 py-4 text-center placeholder:text-gray-400 outline-none mb-4 shadow-inner";
 
 export default function App() {
-  const [view, setView] = useState('dashboard'); // dashboard 或 update
+  const [view, setView] = useState('dashboard'); // dashboard / update
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const patientName = "Alice"; // 假设患者名字
+  const patientName = localStorage.getItem("patientName") || "User";
 
-  // --- 视图：Dashboard ---
+  // --- Dashboard ---
   if (view === 'dashboard') {
     return (
       <div className="relative min-h-screen bg-[#FDFBF7] font-sans overflow-hidden flex flex-col items-center">
         
-        {/* 背景超大半透明 Logo 水印 */}
+        {/* Background */}
         <div 
-          className="absolute inset-0 pointer-events-none opacity-[0.05] bg-no-repeat bg-center"
+          className="absolute inset-0 pointer-events-none opacity-[0.25] bg-no-repeat bg-center"
           style={{ 
             backgroundImage: `url('/logo.png')`, 
-            backgroundSize: '80vh' 
+            backgroundSize: '100vh' 
           }}
         />
 
-        {/* 左上角头像 (圆形，首字母) */}
+        {/* Profile Profolio */}
         <div className="absolute top-8 left-8 z-50">
           <button 
             onClick={() => setSidebarOpen(true)}
-            className="w-16 h-16 rounded-full bg-blue-500 text-white text-2xl font-bold flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
+            className="w-16 h-16 rounded-full bg-blue-300 text-white text-2xl font-bold flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
           >
             {patientName[0]}
           </button>
         </div>
 
-        {/* 侧边栏 (Sidebar) */}
+        {/*  (Sidebar) */}
         {isSidebarOpen && (
           <div className="absolute inset-0 z-[100] flex">
             <div className="w-80 h-full bg-white shadow-2xl p-8 flex flex-col pt-32 animate-in slide-in-from-left duration-300">
@@ -66,7 +66,7 @@ export default function App() {
           </div>
         )}
 
-        {/* 主内容区域 */}
+        {/* Main Content */}
         <div className="relative z-10 pt-32 px-6 w-full flex flex-col items-center">
           <h1 className="text-5xl md:text-6xl font-bold text-[#1F3A5F] mb-16 text-center tracking-tight">
             Hi, I'm here with you.
@@ -82,7 +82,7 @@ export default function App() {
     );
   }
 
-  // --- 视图：Update Profile ---
+  // --- Update Profile ---
   if (view === 'update') {
     return (
       <div 
@@ -91,7 +91,7 @@ export default function App() {
       >
         <div className="bg-white/10 backdrop-blur-md p-10 rounded-[40px] w-full max-w-2xl border border-white/20 shadow-2xl relative">
           
-          {/* 返回按钮 */}
+          {/* return button */}
           <button onClick={() => setView('dashboard')} className="absolute top-8 left-8 text-white/70 hover:text-white">← Back</button>
 
           <h1 className="text-4xl font-extrabold text-white text-center mb-10 uppercase tracking-widest">

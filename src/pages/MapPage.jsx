@@ -6,8 +6,8 @@ import {
 } from "@react-google-maps/api";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SafetyToggle from "../components/SafetyToggle";
-import AlertBanner from "../components/AlertBanner";
+import SafetyToggle from "../Components/SafetyToggle";
+import AlertBanner from "../Components/AlertBanner";
 
 export default function MapPage() {
   const navigate = useNavigate();
@@ -19,14 +19,12 @@ export default function MapPage() {
 
   const [safetyMode, setSafetyMode] = useState(false);
   const [alert, setAlert] = useState(false);
-  const [outCount, setOutCount] = useState(0);
 
   const safetyZone = {
     center: { lat: 37.7749, lng: -122.4194 },
     radius: 200,
   };
 
-  // distance calc
   function getDistance(p1, p2) {
     const R = 6371000;
     const dLat = (p2.lat - p1.lat) * Math.PI / 180;
@@ -41,7 +39,6 @@ export default function MapPage() {
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
-  // simulate movement
   useEffect(() => {
     const interval = setInterval(() => {
       setLocation((prev) => ({
@@ -53,7 +50,6 @@ export default function MapPage() {
     return () => clearInterval(interval);
   }, []);
 
-  // check out of zone
   useEffect(() => {
     if (!safetyMode) return;
 
@@ -61,16 +57,13 @@ export default function MapPage() {
 
     if (distance > safetyZone.radius) {
       setAlert(true);
-      setOutCount((prev) => prev + 1);
-
       setTimeout(() => setAlert(false), 3000);
     }
-  }, [location]);
+  }, [location, safetyMode]);
 
   return (
     <LoadScript googleMapsApiKey="YOUR_API_KEY">
       <div className="relative w-screen h-screen">
-
         <AlertBanner show={alert} />
 
         <SafetyToggle
