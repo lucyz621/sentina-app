@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Landing() {
+  const navigate = useNavigate();
+
   return (
     <div className="relative h-screen w-full overflow-hidden">
 
@@ -29,8 +33,11 @@ export default function Landing() {
             protected by care
           </p>
 
-          {/* NAVY BUTTON */}
-          <button className="mt-10 px-10 py-4 rounded-2xl bg-[#1F3A5F] text-white text-lg font-medium shadow-[0_10px_30px_rgba(31,58,95,0.25)] hover:bg-[#162B45] hover:scale-105 hover:shadow-xl transition-all duration-300">
+          {/* BUTTON */}
+          <button
+            onClick={() => navigate("/login")}
+            className="mt-10 px-10 py-4 rounded-2xl bg-[#1F3A5F] text-white text-lg font-medium shadow-[0_10px_30px_rgba(31,58,95,0.25)] hover:bg-[#162B45] hover:scale-105 hover:shadow-xl transition-all duration-300"
+          >
             Get Started
           </button>
 
