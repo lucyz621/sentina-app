@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SafetySettings() {
-  const [radius, setRadius] = useState(200);
   const navigate = useNavigate();
+  const [radius, setRadius] = useState(200);
+
+  
+  useEffect(() => {
+    const saved = localStorage.getItem("radius");
+    if (saved) setRadius(Number(saved));
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#F5FAFF]">
@@ -17,7 +23,7 @@ export default function SafetySettings() {
           min="100"
           max="1000"
           value={radius}
-          onChange={(e) => setRadius(e.target.value)}
+          onChange={(e) => setRadius(Number(e.target.value))}
           className="w-full mb-4"
         />
 
@@ -25,13 +31,18 @@ export default function SafetySettings() {
           Radius: {radius} meters
         </p>
 
+        {/* Save */}
         <button
-          onClick={() => navigate("/map")}
+          onClick={() => {
+            localStorage.setItem("radius", radius);
+            navigate("/map");
+          }}
           className="w-full py-3 bg-[#1F3A5F] text-white rounded-xl mb-3"
         >
           Save
         </button>
 
+        {/* Skip */}
         <button
           onClick={() => navigate("/map")}
           className="w-full py-3 border rounded-xl"

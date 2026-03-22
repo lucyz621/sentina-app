@@ -3,8 +3,11 @@ export default function SafetyToggle({ safetyMode, setSafetyMode, navigate }) {
     <button
       onClick={() => {
         if (!safetyMode) {
+          localStorage.setItem("safetyMode", "true");
+          setSafetyMode(true);
           navigate("/safety-settings");
         } else {
+          localStorage.setItem("safetyMode", "false");
           setSafetyMode(false);
         }
       }}
