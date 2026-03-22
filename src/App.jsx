@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import MapPage from "./pages/MapPage";
 import SafetySettings from "./pages/SafetySettings";
+import TalkPage from "./pages/TalkPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/safety-settings" element={<SafetySettings />} />
+        <Route path="/talk" element={<TalkPage />} />
       </Routes>
     </Router>
   );

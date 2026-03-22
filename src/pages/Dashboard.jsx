@@ -2,21 +2,46 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // --- Feature Bar ---
-const FeatureBar = ({ title, description, onClick }) => (
+const FeatureBar = ({
+  title,
+  description,
+  onClick,
+  linkText,
+  onLinkClick,
+  clickable = true,
+}) => (
   <div
-    onClick={onClick}
-    className="w-full max-w-2xl bg-gradient-to-r from-[#E3F2FD] to-[#F1F8FE] hover:from-[#D1E9FF] hover:to-[#E3F2FD] transition-all cursor-pointer rounded-2xl p-8 mb-6 shadow-sm border border-white/50 group"
+    onClick={clickable ? onClick : undefined}
+    className={`w-full max-w-2xl bg-gradient-to-r from-[#E3F2FD] to-[#F1F8FE] hover:from-[#D1E9FF] hover:to-[#E3F2FD] transition-all rounded-2xl p-8 mb-6 shadow-sm border border-white/50 group ${
+      clickable ? "cursor-pointer" : "cursor-default"
+    }`}
   >
-    <div className="flex justify-between items-center">
-      <div>
+    <div className="flex justify-between items-start">
+      <div className="w-full">
         <h3 className="text-2xl font-bold text-[#1F3A5F] group-hover:text-blue-600 transition-colors">
           {title}
         </h3>
         <p className="text-gray-500 mt-1">{description}</p>
+
+        {linkText && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onLinkClick?.();
+            }}
+            className="mt-3 text-sm text-blue-500 hover:text-blue-600 hover:underline font-medium"
+          >
+            {linkText}
+          </button>
+        )}
       </div>
-      <span className="text-2xl text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
-        →
-      </span>
+
+      {clickable && (
+        <span className="text-2xl text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity ml-4 pt-1">
+          →
+        </span>
+      )}
     </div>
   </div>
 );
@@ -35,7 +60,6 @@ export default function Dashboard() {
   if (view === "dashboard") {
     return (
       <div className="relative min-h-screen bg-[#FDFBF7] font-sans overflow-hidden flex flex-col items-center">
-        
         {/* Background */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.25] bg-no-repeat bg-center"
@@ -87,17 +111,15 @@ export default function Dashboard() {
         {/* Main Content */}
         <div className="relative z-10 pt-32 px-6 w-full flex flex-col items-center">
           <h1 className="text-5xl md:text-6xl font-bold text-[#1F3A5F] mb-16 text-center tracking-tight">
-            Hi, I'm here with you.
+            Hi, I&apos;m here with you.
           </h1>
 
           <div className="w-full flex flex-col items-center">
-            
-            {/* ✅ FIXED: Navigate to Map */}
             <FeatureBar
               title="Location Tracking"
               description="Keep an eye on safety, anytime, anywhere."
               onClick={() => {
-                console.log("clicked"); // debug
+                console.log("clicked");
                 navigate("/map");
               }}
             />
@@ -105,7 +127,9 @@ export default function Dashboard() {
             <FeatureBar
               title="Talk with Me"
               description="Connect with the voice that brings comfort."
-              onClick={() => alert("Coming soon")}
+              clickable={false}
+              linkText="Record familiar voice"
+              onLinkClick={() => navigate("/talk")}
             />
 
             <FeatureBar
@@ -127,7 +151,6 @@ export default function Dashboard() {
         style={{ backgroundImage: `url('/waves.png')` }}
       >
         <div className="bg-white/10 backdrop-blur-md p-10 rounded-[40px] w-full max-w-2xl border border-white/20 shadow-2xl relative">
-
           {/* Back */}
           <button
             onClick={() => setView("dashboard")}
@@ -146,14 +169,41 @@ export default function Dashboard() {
             </h2>
 
             <div className="grid grid-cols-3 gap-4">
-              <input type="text" placeholder="Name" className={inputStyle} defaultValue={patientName} />
-              <input type="number" placeholder="Age" className={inputStyle} defaultValue="72" />
-              <input type="text" placeholder="Pronouns" className={inputStyle} defaultValue="She/Her" />
+              <input
+                type="text"
+                placeholder="Name"
+                className={inputStyle}
+                defaultValue={patientName}
+              />
+              <input
+                type="number"
+                placeholder="Age"
+                className={inputStyle}
+                defaultValue="72"
+              />
+              <input
+                type="text"
+                placeholder="Pronouns"
+                className={inputStyle}
+                defaultValue="She/Her"
+              />
             </div>
 
-            <input type="text" placeholder="Stage of Disease" className={inputStyle} />
-            <input type="text" placeholder="Address" className={inputStyle} />
-            <input type="text" placeholder="Emergency Contact" className={inputStyle} />
+            <input
+              type="text"
+              placeholder="Stage of Disease"
+              className={inputStyle}
+            />
+            <input
+              type="text"
+              placeholder="Address"
+              className={inputStyle}
+            />
+            <input
+              type="text"
+              placeholder="Emergency Contact"
+              className={inputStyle}
+            />
 
             <div className="pt-8 flex justify-center">
               <button
