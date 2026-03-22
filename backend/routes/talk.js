@@ -55,6 +55,7 @@ router.post("/", upload.single("audio"), async (req, res) => {
       geminiRes.data.candidates[0].content.parts[0].text;
 
     console.log("Reply:", reply);
+    
 
     // 🔊 ElevenLabs
     const ttsRes = await axios.post(
