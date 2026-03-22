@@ -127,7 +127,7 @@ export default function Dashboard() {
             <FeatureBar
               title="Talk with Me"
               description="Connect with the voice that brings comfort."
-              clickable={false}
+              onClick={() => navigate("/chat")}
               linkText="Record familiar voice"
               onLinkClick={() => navigate("/talk")}
             />

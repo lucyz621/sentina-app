@@ -8,6 +8,7 @@ import MapPage from "./pages/MapPage";
 import SafetySettings from "./pages/SafetySettings";
 import TalkPage from "./pages/TalkPage";
 import Statistics from "./pages/Statistics"; 
+import ChatPage from "./pages/ChatPage";
 function App() {
   return (
     <Router>
@@ -24,9 +25,10 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/safety-settings" element={<SafetySettings />} />
         <Route path="/talk" element={<TalkPage />} />
-        <Route path="/statistics" element={<Statistics />} /> {/* 🔴 2. 注册路由 */}
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/statistics" element={<Statistics />} /> 
         
-        {/* Redirect unknown paths back to Landing (放到最后) */}
+        {/* Redirect unknown paths back to Landing  */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
