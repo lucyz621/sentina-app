@@ -7,34 +7,16 @@ export default function TalkPage() {
   const [saved, setSaved] = useState(false);
 
   const navigate = useNavigate();
-
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
 
-  
   const sampleSentences = [
+    "Hi, I'm here with you.",
+    "Everything is okay, you're safe.",
     "It's time to go to sleep.",
-    "It's a beautiful day outside, maybe go for a walk.",
-    "Don't forget to take your medicine.",
-    "I'm here with you, everything is okay.",
+    "Don't forget your medicine.",
+    "I'm right here, you're not alone.",
   ];
-
-  const uploadVoice = async (blob) => {
-    const formData = new FormData();
-    formData.append("audio", blob);
-
-    const res = await fetch("http://localhost:5000/api/voice", {
-      method: "POST",
-      body: formData,
-    });
-
-    
-
-    const data = await res.json();
-
-    localStorage.setItem("voice_id", data.voice_id);
-    setSaved(true);
-  };
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -46,14 +28,13 @@ export default function TalkPage() {
       chunksRef.current.push(e.data);
     };
 
-    recorder.onstop = async () => {
+    recorder.onstop = () => {
       const blob = new Blob(chunksRef.current, { type: "audio/webm" });
       const url = URL.createObjectURL(blob);
 
       setAudioURL(url);
       chunksRef.current = [];
-
-      await uploadVoice(blob);
+      setSaved(true);
     };
 
     recorder.start();
@@ -66,13 +47,12 @@ export default function TalkPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#FDFBF7] px-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#FDFBF7] px-6 text-center">
       <h1 className="text-3xl mb-6 text-[#1F3A5F]">
         Record Familiar Voice
       </h1>
 
-      {/* 示例句子 */}
-      <div className="mb-6 text-center text-[#1F3A5F] space-y-2">
+      <div className="mb-6 space-y-2 text-[#1F3A5F]">
         {sampleSentences.map((s, i) => (
           <p key={i}>"{s}"</p>
         ))}
@@ -88,18 +68,14 @@ export default function TalkPage() {
         {recording ? "Recording..." : "Hold to Record"}
       </button>
 
-      {audioURL && (
-        <div className="mt-4">
-          <audio controls src={audioURL}></audio>
-        </div>
-      )}
+      {audioURL && <audio className="mt-4" controls src={audioURL}></audio>}
 
       {saved && (
         <button
           onClick={() => navigate("/chat")}
           className="mt-6 px-6 py-3 bg-green-500 text-white rounded"
         >
-          Continue to Talk With Me →
+          Continue →
         </button>
       )}
     </div>
