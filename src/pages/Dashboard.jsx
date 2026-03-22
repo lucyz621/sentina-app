@@ -13,7 +13,7 @@ const FeatureBar = ({
   <div
     onClick={clickable ? onClick : undefined}
     className={`w-full max-w-2xl bg-gradient-to-r from-[#E3F2FD] to-[#F1F8FE] hover:from-[#D1E9FF] hover:to-[#E3F2FD] transition-all rounded-2xl p-8 mb-6 shadow-sm border border-white/50 group ${
-      clickable ? "cursor-pointer" : "cursor-default"
+      clickable ? "cursor-pointer hover:scale-[1.02] active:scale-95" : "cursor-default"
     }`}
   >
     <div className="flex justify-between items-start">
@@ -46,8 +46,9 @@ const FeatureBar = ({
   </div>
 );
 
+// Updated input style for the light beige theme
 const inputStyle =
-  "w-full bg-[#1A263C] text-white rounded-full px-6 py-4 text-center placeholder:text-gray-400 outline-none mb-4 shadow-inner";
+  "w-full bg-white text-[#1F3A5F] border border-gray-200 rounded-full px-6 py-4 text-center placeholder:text-gray-400 outline-none mb-4 shadow-sm focus:border-blue-300 focus:ring-2 focus:ring-blue-100 transition-all font-medium";
 
 export default function Dashboard() {
   const [view, setView] = useState("dashboard");
@@ -60,7 +61,7 @@ export default function Dashboard() {
   if (view === "dashboard") {
     return (
       <div className="relative min-h-screen bg-[#FDFBF7] font-sans overflow-hidden flex flex-col items-center">
-        {/* Background */}
+        {/* Background Logo Watermark */}
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.25] bg-no-repeat bg-center"
           style={{
@@ -145,25 +146,22 @@ export default function Dashboard() {
   // --- Update Profile ---
   if (view === "update") {
     return (
-      <div
-        className="min-h-screen flex items-center justify-center bg-cover bg-center p-6"
-        style={{ backgroundImage: `url('/waves.png')` }}
-      >
-        <div className="bg-white/10 backdrop-blur-md p-10 rounded-[40px] w-full max-w-2xl border border-white/20 shadow-2xl relative">
-          {/* Back */}
+      <div className="min-h-screen flex items-center justify-center bg-[#FDFBF7] p-6 relative">
+        <div className="bg-white p-10 rounded-[40px] w-full max-w-2xl border border-gray-100 shadow-xl relative z-10">
+          {/* Back Button */}
           <button
             onClick={() => setView("dashboard")}
-            className="absolute top-8 left-8 text-white/70 hover:text-white"
+            className="absolute top-8 left-8 text-[#1F3A5F]/60 hover:text-[#1F3A5F] font-medium transition-colors"
           >
             ← Back
           </button>
 
-          <h1 className="text-4xl font-extrabold text-white text-center mb-10 uppercase tracking-widest">
+          <h1 className="text-4xl font-extrabold text-[#1F3A5F] text-center mb-10 uppercase tracking-widest mt-4">
             Update
           </h1>
 
           <div className="space-y-2">
-            <h2 className="text-white/60 text-center text-sm mb-4 uppercase tracking-widest">
+            <h2 className="text-gray-500 text-center text-sm mb-4 uppercase tracking-widest font-bold">
               Patient Details
             </h2>
 
