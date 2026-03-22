@@ -119,7 +119,6 @@ export default function Dashboard() {
               title="Location Tracking"
               description="Keep an eye on safety, anytime, anywhere."
               onClick={() => {
-                console.log("clicked");
                 navigate("/map");
               }}
             />
@@ -135,7 +134,7 @@ export default function Dashboard() {
             <FeatureBar
               title="Statistics"
               description="View daily activities and interaction insights."
-              onClick={() => alert("Coming soon")}
+              onClick={() => navigate("/statistics")}
             />
           </div>
         </div>
